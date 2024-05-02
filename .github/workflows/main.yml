@@ -22,6 +22,7 @@ jobs:
             docker compose down
             docker compose up -d
             sleep 15
+            docker compose exec php-fpm composer i --no-interaction --prefer-dist
             docker compose exec php-fpm php bin/console d:m:m --no-interaction
             composer dump-env dev
             docker compose exec php-fpm php bin/console c:c
