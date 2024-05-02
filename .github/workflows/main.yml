@@ -20,7 +20,7 @@ jobs:
             cd /var/www/cv.redoc.tech
             git pull
             docker compose down
-            docker compose up -d
+            docker compose -f docker-compose.prod.yml up -d
             sleep 15
             docker compose exec php-fpm composer i --no-interaction --prefer-dist
             docker compose exec php-fpm php bin/console d:m:m --no-interaction
