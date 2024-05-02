@@ -28,3 +28,4 @@ jobs:
             docker compose exec php-fpm php bin/console c:c
             docker compose exec php-fpm composer dump-env prod
             docker compose exec php-fpm php bin/console c:c
+            docker compose exec php-fpm chmod -R 777 var/
