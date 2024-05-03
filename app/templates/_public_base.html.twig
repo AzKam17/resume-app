@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('assets/js/config.js') }}"></script>
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="bg-primary d-flex justify-content-center align-items-center min-vh-100 p-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+    {% include '_partials/_footer_scripts.html.twig' %}
+</body>
+</html>

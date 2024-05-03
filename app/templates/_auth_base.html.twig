@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css">
+        <script src="{{ asset('assets/js/config.js') }}"></script>
+
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="layout-wrapper">
+            {% include '_partials/_menu.html.twig' %}
+            <div class="page-content">
+                <div class="px-3">
+                    <div class="container-fluid">
+                        <div class="py-3 py-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h4 class="page-title mb-0">{{title}}</h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-none d-lg-block">
+                                        <ol class="breadcrumb m-0 float-end">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">@@subtitle</a></li>
+                                            <li class="breadcrumb-item active">@@title</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% include '_partials/_footer_scripts.html.twig' %}
+    </body>
+</html>
