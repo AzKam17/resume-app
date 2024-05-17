@@ -37,6 +37,10 @@ class PublicController extends AbstractController
                 $session = $request->getSession();
                 $session->set('user_email', $email);
                 return $this->redirectToRoute('public_sign_in');
+            }else{
+                $session = $request->getSession();
+                $session->set('user_email', $email);
+                return $this->redirectToRoute('app_login');
             }
         }
 

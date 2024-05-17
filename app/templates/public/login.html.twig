@@ -1,0 +1,50 @@
+{% extends '_public_base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="col-xl-4 col-md-5">
+    <div class="card">
+
+        <div class="card-body p-4">
+
+            <div class="text-center w-75 mx-auto auth-logo mb-4">
+                <a href="{{ path('public_home') }}">
+                    <span><img src="https://placehold.co/708x120" alt="" height="22"></span>
+                </a>
+            </div>
+
+            <form action="/login" method="post" data-turbo-frame="_top">
+                {#{% if not form.vars.valid %}
+                    <div id="form_errors_alert" class="alert alert-danger" role="alert">
+                        {% for children in form.children %}
+                            {% for child in children %}
+                                {% if not child.vars.valid %}
+                                    {{ form_errors(child) }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}#}
+
+                <div class="form-group mb-3">
+                    <label for="username">Email</label>
+                    <input type="email" value="{{ app.session.get('user_email') ?? last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required {% if app.session.get('user_email') %}disabled{% endif %}>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                <div class="form-group mb-0 text-center">
+                    <button class="btn btn-primary w-100" type="submit"> Connexion </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
