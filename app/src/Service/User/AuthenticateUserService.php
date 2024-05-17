@@ -19,7 +19,7 @@ class AuthenticateUserService
 
     public function __invoke(User $user)
     {
-        $this->security->login($user);
+        $this->security->login($user, "form_login");
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 }

@@ -23,6 +23,7 @@ class CreateUserService
         }
 
         $user = (new User())
+            ->setSocialId("none")
             ->setEmail($email)
             ->setAuthMethod('form_login')
         ;
