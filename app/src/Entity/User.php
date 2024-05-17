@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $socialId = null;
+
     #[ORM\PrePersist]
     public function prePersist(){
         $this->createdAt = CarbonImmutable::now();
@@ -140,6 +143,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAuthMethod(string $auth_method): static
     {
         $this->auth_method = $auth_method;
+
+        return $this;
+    }
+
+    public function getSocialId(): ?string
+    {
+        return $this->socialId;
+    }
+
+    public function setSocialId(string $socialId): static
+    {
+        $this->socialId = $socialId;
 
         return $this;
     }

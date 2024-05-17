@@ -35,6 +35,8 @@
 
             {{ form_row(form._token) }}
             {{ form_end(form, {render_rest: false}) }}
+            <hr>
+            <a href="{{ path("oauth_google") }}"  data-turbo-frame="_top">Google</a>
         </div>
     </div>
 
