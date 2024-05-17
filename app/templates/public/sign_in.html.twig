@@ -1,0 +1,68 @@
+{% extends '_public_base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+
+<div class="col-xl-4 col-md-5">
+    <div class="card">
+
+        <div class="card-body p-4">
+
+            <div class="text-center w-75 mx-auto auth-logo mb-4">
+                <a href="{{ path('public_home') }}">
+                    <span><img src="https://placehold.co/708x120" alt="" height="22"></span>
+                </a>
+            </div>
+
+            {{ form_start(form) }}
+
+            {% if not form.vars.valid %}
+            <div id="form_errors_alert" class="alert alert-danger" role="alert">
+                {% for children in form.children %}
+                    {% for child in children %}
+                        {% if not child.vars.valid %}
+                            {{ form_errors(child) }}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group mb-3">
+                <label class="form-label" for="emailaddress">{{ form.email.vars.label }}</label>
+                <input class="form-control" type="email" id="emailaddress" value="{{ user_email }}" name="{{ form.email.vars.full_name }}" disabled>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label" for="{{ form.password.children.first.vars.id }}">{{ form.password.children.first.vars.label }}</label>
+                <input class="form-control" type="password" id="{{ form.password.children.first.vars.id }}" name="{{ form.password.children.first.vars.full_name }}">
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label" for="{{ form.password.children.second.vars.id }}">{{ form.password.children.second.vars.label }}</label>
+                <input class="form-control" type="password" id="{{ form.password.children.second.vars.id }}" name="{{ form.password.children.second.vars.full_name }}">
+            </div>
+
+            {#<div class="form-group mb-3">
+                    <div class="">
+                        <input class="form-check-input" type="checkbox" id="checkbox-signin" checked>
+                        <label class="form-check-label ms-2" for="checkbox-signin">I accept <a href="#">Terms and Conditions</a></label>
+                    </div>
+                </div>#}
+
+            <div class="form-group mb-0 text-center">
+                <button class="btn btn-primary w-100" type="submit"> Continuer </button>
+            </div>
+
+            {{ form_row(form._token) }}
+            {{ form_end(form, {render_rest: false}) }}
+        </div>
+    </div>
+
+    {#<div class="row mt-3">
+        <div class="col-12 text-center">
+            <p class="text-white-50">Already have an account ? <a href="pages-login.html" class="text-white font-weight-medium ms-1">Log In</a></p>
+        </div> <!-- end col -->
+    </div>#}
+    {% endblock %}
