@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ScrappedDataRepository;
+use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -30,7 +31,7 @@ class ScrappedData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $location = null;
 
-    #[ORM\Column(name:'desc', type: Types::TEXT, nullable: true)]
+    #[ORM\Column(name:'descr', type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(name:'start_date', length: 255, nullable: true)]
@@ -63,12 +64,10 @@ class ScrappedData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $platform = null;
 
-    #[Gedmo\Timestampable(on: 'create')]
-    #[ORM\Column(name: 'created', type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[Gedmo\Timestampable(on: 'update')]
-    #[ORM\Column(name: 'updated', type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(name: 'updated_at', type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
@@ -77,6 +76,13 @@ class ScrappedData
     #[ORM\PrePersist]
     public function prePersist(){
         $this->isPublished = false;
+        $this->createdAt = CarbonImmutable::now();
+        $this->updatedAt = CarbonImmutable::now();
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate(){
+        $this->updatedAt = CarbonImmutable::now();
     }
 
     public function getId(): ?int
