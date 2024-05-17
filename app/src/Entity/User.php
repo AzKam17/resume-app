@@ -22,6 +22,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $auth_method = null;
+
     /**
      * @var list<string> The user roles
      */
@@ -125,6 +128,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAuthMethod(): ?string
+    {
+        return $this->auth_method;
+    }
+
+    public function setAuthMethod(string $auth_method): static
+    {
+        $this->auth_method = $auth_method;
 
         return $this;
     }

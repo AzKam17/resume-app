@@ -15,17 +15,20 @@ class CreateUserService
     )
     {}
 
-    public function __invoke(string $email, string $password) : User
+    public function __invoke(string $email, string $password) : ?User
     {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             throw new \Exception('Invalid email adress');
+            return null;
         }
 
         $user = (new User())
-            ->setEmail($email);
+            ->setEmail($email)
+            ->setAuthMethod('form_login')
+        ;
 
-        $password = $this->passwordHasher->hashPassword($user, 'pass_1234');
-        $user->setPassword($password);
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
+        $user->setPassword($hashedPassword);
 
         $this->manager->persist($user);
         $this->manager->flush();

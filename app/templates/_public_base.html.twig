@@ -17,11 +17,11 @@
     {% endblock %}
 </head>
 <body class="bg-primary d-flex justify-content-center align-items-center min-vh-100 p-5">
-    <div class="container">
+    <turbo-frame id="public_main_frame" class="container">
         <div class="row justify-content-center">
             {% block body %}{% endblock %}
         </div>
-    </div>
+    </turbo-frame>
     {% include '_partials/_footer_scripts.html.twig' %}
 </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\User\AuthenticateUserService;
 use App\Service\User\CheckIfUserExistsService;
 use App\Service\User\CreateUserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class PublicController extends AbstractController
@@ -45,7 +48,11 @@ class PublicController extends AbstractController
     }
 
     #[Route('/sign-in', name: 'public_sign_in')]
-    public function sign_in(Request $request, CreateUserService $createUserService): Response
+    public function sign_in(
+        Request $request,
+        CreateUserService $createUserService,
+        AuthenticateUserService $authenticateUserService
+    ): Response
     {
         $session = $request->getSession();
         $user_email = $session->get('user_email');
@@ -53,7 +60,10 @@ class PublicController extends AbstractController
             return $this->redirectToRoute('public_home');
         }
 
-        $form = $this->createFormBuilder(null)
+        $form = $this->createFormBuilder(null, [
+                'attr' => ['data-turbo-frame' => "_top"]
+            ])
+            ->setAction($this->generateUrl('public_sign_in'))
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'empty_data' => $user_email,
@@ -67,10 +77,7 @@ class PublicController extends AbstractController
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Veuillez repéter le mot de passe'],
                 'constraints' => [
-                    new PasswordStrength(
-                        minScore: PasswordStrength::STRENGTH_WEAK,
-                        message: "Mot de passe faible."
-                    )
+
                 ]
             ])
             ->getForm();
@@ -80,11 +87,14 @@ class PublicController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $password = $form->getData()["password"];
 
-            ($createUserService)(email: $user_email, password: $password);
+            $user = ($createUserService)(email: $user_email, password: $password);
+            if($user){
+                return ($authenticateUserService)(user: $user);
+            }
         }
 
         return $this->render('public/sign_in.html.twig', [
-            'title' => 'Inscription',
+            'title' => 'Inscription OK',
             'user_email' => $user_email,
 
             'form' => $form,
