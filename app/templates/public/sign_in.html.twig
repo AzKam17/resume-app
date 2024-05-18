@@ -15,6 +15,7 @@
                 </a>
             </div>
 
+            <h3 class="public-title">Inscription</h3>
             {{ form_start(form) }}
 
             {% if not form.vars.valid %}
@@ -57,6 +58,8 @@
 
             {{ form_row(form._token) }}
             {{ form_end(form, {render_rest: false}) }}
+
+            {{ include('_partials/_back_button.twig', {path: 'public_home'}) }}
         </div>
     </div>
 
