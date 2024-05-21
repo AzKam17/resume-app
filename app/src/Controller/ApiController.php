@@ -20,7 +20,7 @@ class ApiController extends AbstractController
         ScrappedDataRepository $repository
     ): JsonResponse
     {
-        dump($dto);
+        //dump($dto);
 
         $sc = (new ScrappedData())
             ->setUrl($dto->url)
