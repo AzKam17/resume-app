@@ -8,6 +8,7 @@ use App\Repository\ScrappedDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -18,7 +19,7 @@ class ApiController extends AbstractController
         #[MapRequestPayload] ScrappedDataInsertDto $dto,
         EntityManagerInterface $manager,
         ScrappedDataRepository $repository
-    ): JsonResponse
+    ): Response
     {
         //dump($dto);
 
@@ -46,7 +47,7 @@ class ApiController extends AbstractController
         $e = $repository->findOneBy(['hash' => $sc->getHash()]);
         if($e){
             return $this->json([
-                'message' => 'Job already in DB !',
+                'message' => 'Job inserted',
             ]);
         }
 
