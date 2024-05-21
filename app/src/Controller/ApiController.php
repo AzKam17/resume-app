@@ -47,7 +47,7 @@ class ApiController extends AbstractController
         $e = $repository->findOneBy(['hash' => $sc->getHash()]);
         if($e){
             return $this->json([
-                'message' => 'Job inserted',
+                'message' => 'Job already inserted',
             ]);
         }
 
