@@ -2,3 +2,4 @@
 /.idea
 /.docker
 /elastic-data
+/docker-compose.yml

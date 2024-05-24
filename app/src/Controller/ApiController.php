@@ -21,8 +21,6 @@ class ApiController extends AbstractController
         ScrappedDataRepository $repository
     ): Response
     {
-        //dump($dto);
-
         $sc = (new ScrappedData())
             ->setUrl($dto->url)
             ->setTitle($dto->title)
@@ -45,7 +43,7 @@ class ApiController extends AbstractController
         ;
 
         $e = $repository->findOneBy(['hash' => $sc->getHash()]);
-        if($e){
+        if(!is_null($e)){
             return $this->json([
                 'message' => 'Job already inserted',
             ]);
