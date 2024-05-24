@@ -44,16 +44,12 @@ class ApiController extends AbstractController
 
         $e = $repository->findOneBy(['hash' => $sc->getHash()]);
         if(!is_null($e)){
-            return $this->json([
-                'message' => 'Job already inserted',
-            ]);
+            return new Response("", Response::HTTP_OK);
         }
 
         $manager->persist($sc);
         $manager->flush();
 
-        return $this->json([
-            'message' => 'Job inserted',
-        ]);
+        return new Response("", Response::HTTP_CREATED);
     }
 }
