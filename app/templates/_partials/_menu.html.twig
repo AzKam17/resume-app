@@ -478,6 +478,29 @@
                 </ul>
             </div>
         </li>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="menu-item">
+                <a href="#menuAdminTools" data-bs-toggle="collapse" class="menu-link waves-effect">
+                    <i class="mdi mdi-tools"></i>
+                    <span class="menu-text no-padding-left">Admin Tools </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="menuAdminTools">
+                    <ul class="sub-menu">
+                        <li class="menu-item">
+                            <a href="#menuAdminTools2" class="menu-link">
+                                <span class="menu-text"> Jobs </span>
+                            </a>
+                        </li><li class="menu-item">
+                            <a href="#menuAdminTools2" class="menu-link">
+                                <span class="menu-text"> Users </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        {% endif %}
     </ul>
     <!--- End Menu -->
 </div>

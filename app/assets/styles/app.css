@@ -10,6 +10,10 @@ body {
     text-align: left;
 }
 
+.no-padding-left{
+    padding-left: 0 !important;
+}
+
 .gsi-material-button {
     -moz-user-select: none;
     -webkit-user-select: none;
