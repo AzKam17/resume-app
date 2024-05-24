@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Dto\ScrappedData\CheckSCExistenceDto;
 use App\Dto\ScrappedData\ScrappedDataInsertDto;
 use App\Entity\ScrappedData;
 use App\Repository\ScrappedDataRepository;
@@ -49,6 +50,27 @@ class ApiController extends AbstractController
 
         $manager->persist($sc);
         $manager->flush();
+
+        return new Response("", Response::HTTP_CREATED);
+    }
+
+
+    #[Route('/api/look', name: 'app_api_search_url')]
+    public function app_api_search_url(
+        #[MapRequestPayload] CheckSCExistenceDto $dto,
+        ScrappedDataRepository $repository
+    )
+    {
+        $sc = (new ScrappedData())
+            ->setHash(hash("sha256", $dto->url))
+            ->setUrl($dto->url)
+        ;
+
+        $e = $repository->findOneBy(['hash' => $sc->getHash()]);
+        if(!is_null($e)){
+            return new Response("", Response::HTTP_OK);
+        }
+
 
         return new Response("", Response::HTTP_CREATED);
     }
