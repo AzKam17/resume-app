@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-        <div class="layout-wrapper">
+        <turbo-frame id="app_main_frame"  class="layout-wrapper">
             {% include '_partials/_menu.html.twig' %}
             <div class="page-content">
                 <div class="px-3">
@@ -29,8 +29,8 @@
                                 <div class="col-lg-6">
                                     <div class="d-none d-lg-block">
                                         <ol class="breadcrumb m-0 float-end">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">@@subtitle</a></li>
-                                            <li class="breadcrumb-item active">@@title</li>
+                                            {#<li class="breadcrumb-item"><a href="javascript: void(0);">@@subtitle</a></li>
+                                            <li class="breadcrumb-item active">@@title</li>#}
                                         </ol>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                     {% block body %}{% endblock %}
                 </div>
             </div>
-        </div>
+        </turbo-frame>
         {% include '_partials/_footer_scripts.html.twig' %}
     </body>
 </html>
