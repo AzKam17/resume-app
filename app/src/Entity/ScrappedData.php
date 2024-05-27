@@ -52,7 +52,7 @@ class ScrappedData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $publishedAt = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'tags', type: Types::TEXT, nullable: true)]
     private ?string $tags = null;
 
     #[ORM\Column(length: 255, nullable: true)]
