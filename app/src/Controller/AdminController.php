@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\ScrappedData;
+use App\Form\PublishJobsType;
 use App\Repository\ScrappedDataRepository;
 use Carbon\CarbonImmutable;
+use http\Encoding\Stream\Enbrotli;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,10 +34,6 @@ class AdminController extends AbstractController
             'isPublished' => false
         ]);
 
-        $publishedJobs =  $repository->findBy([
-            'isPublished' => false
-        ]);
-
         $diffInPercentage = $this->getPercentageEvolution(
             count($lastJobsYesterdayAndTheDayBefore),
             count($lastDay)
@@ -43,7 +42,7 @@ class AdminController extends AbstractController
         $lastFiveJobs = $repository->findBy([], ['id' => 'DESC'], 10, 0);
 
         return $this->render('admin/jobs/index.html.twig', [
-            'title' => 'Jobs Admin',
+            'title' => 'Jobs - Admin',
             'lastDayCount' => count($lastDay),
             'diffInPercentage' => $diffInPercentage,
 
@@ -53,6 +52,29 @@ class AdminController extends AbstractController
             'countPerPlatform' => $repository->countItemsPerPlatform(),
 
             'lastFiveJobs' => $lastFiveJobs
+        ]);
+    }
+
+    #[Route('/app/admin/jobs/publish', name: 'app_admin_jobs_publish')]
+    public function jobs_publish(
+        ScrappedDataRepository $repository
+    )
+    {
+        $e = $repository->findOneBy(
+            ['isPublished' => false],
+            ['id' => 'DESC'],
+        );
+        if(!$e instanceof ScrappedData){
+            // Faire une vue pour plus de jobs a valider
+            return new Response("No job to check");
+        }
+
+        $form = $this->createForm(PublishJobsType::class, $e);
+
+        return $this->render('admin/jobs/publish.html.twig', [
+            'title' => 'Publier des jobs - Admin',
+
+            'job' => $e
         ]);
     }
 

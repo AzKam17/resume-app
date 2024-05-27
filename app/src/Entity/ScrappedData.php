@@ -73,7 +73,7 @@ class ScrappedData
     #[ORM\Column]
     private ?bool $isPublished = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'img', type: Types::TEXT, nullable: true)]
     private ?string $image = null;
 
     #[ORM\PrePersist]

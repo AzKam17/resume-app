@@ -10,6 +10,10 @@ body {
     text-align: left;
 }
 
+.job-author-img{
+    max-height: 200px;
+}
+
 .no-padding-left{
     padding-left: 0 !important;
 }

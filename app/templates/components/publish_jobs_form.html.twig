@@ -1,0 +1,238 @@
+<div {{ attributes }} class="container">
+    <div class="row">
+        <div class="col-lg mb-3">
+            <button
+                    type="button" class="btn btn-primary waves-effect waves-light"
+                    data-action="live#action"
+                    data-live-action-param="save"
+            >Enregistrer</button>
+
+            {% if isSaved %}
+                <button
+                        type="button" class="btn btn-success waves-effect waves-light"
+                        data-action="live#action"
+                        data-live-action-param="publish"
+                >Publier</button>
+            {% endif %}
+
+            {% if isSaved %}
+                <span class="ml-2">Enregistré le, {{ "now" | date('d/m/y H:i') }}</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Édition</h4>
+                    <div class="d-grid gap-2">
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_title">
+                                Titre
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.title"
+                                       value="{{ job.title }}"
+                                       id="job_title"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_type">
+                                Titre
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.type"
+                                       value="{{ job.type }}"
+                                       data-action="live#update"
+                                       id="job_type"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_location">
+                                Lieu
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.location"
+                                       value="{{ job.location }}"
+                                       data-action="live#update"
+                                       id="job_location"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_departement">
+                                Département
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.departement"
+                                       value="{{ job.departement }}"
+                                       data-action="live#update"
+                                       id="job_departement"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_level">
+                                Niveau
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.level"
+                                       value="{{ job.level }}"
+                                       data-action="live#update"
+                                       id="job_level"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_numberPosition">
+                                Nombre de postes
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.numberPosition"
+                                       value="{{ job.numberPosition }}"
+                                       data-action="live#update"
+                                       id="job_numberPosition"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_file">
+                                Fichier
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.file"
+                                       value="{{ job.file }}"
+                                       data-action="live#update"
+                                       id="job_file"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_image">
+                                Image
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.image"
+                                       value="{{ job.image }}"
+                                       data-action="live#update"
+                                       id="job_image"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_publishedAt">
+                                Publié le
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.publishedAt"
+                                       value="{{ job.publishedAt }}"
+                                       data-action="live#update"
+                                       id="job_publishedAt"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_tags">
+                                Tags
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.tags"
+                                       value="{{ job.tags }}"
+                                       data-action="live#update"
+                                       id="job_tags"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_startDate">
+                                Date de débart
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.startDate"
+                                       value="{{ job.startDate }}"
+                                       data-action="live#update"
+                                       id="job_startDate"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_endDate">
+                                Date limite
+                            </label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"
+                                       data-model="debounce(500)|job.endDate"
+                                       value="{{ job.endDate }}"
+                                       data-action="live#update"
+                                       id="job_endDate"
+                                >
+                            </div>
+                        </div>
+                        {# ==== #}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label"
+                                   for="job_description">
+                                Description
+                            </label>
+                            <div class="col-md-10">
+                                <textarea
+                                        class="form-control" data-action="live#update"
+                                        data-model="debounce(500)|job.description"
+                                        id="job_description" cols="30" rows="10">
+                                    {{ job.description }}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Prévisualisation</h4>
+                <hr>
+                {{ component('job_display', {
+                    job: job,
+                }) }}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
