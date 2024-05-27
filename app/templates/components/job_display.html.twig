@@ -1,0 +1,74 @@
+<div class="mb-4">
+    <h3><span class="badge badge-soft-primary float-end">{{ job.type }}</span></h3>
+    <h3>{{ job.title }}</h3>
+</div>
+<hr>
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% if job.location %}
+                    <p style="margin-bottom: 10px;">
+                        Lieu : {{ job.location }}
+                    </p>
+                {% endif %}
+                {% if job.startDate %}
+                    <p style="margin-bottom: 10px;">
+                        Date d'édition : {{ job.startDate }}
+                    </p>
+                {% endif %}
+                {% if job.endDate %}
+                    <p style="margin-bottom: 10px;">
+                        Date limite : {{ job.endDate }}
+                    </p>
+                {% endif %}
+                {% if job.departement %}
+                    <p style="margin-bottom: 10px;">
+                        Département : {{ job.departement }}
+                    </p>
+                {% endif %}
+                {% if job.numberPosition %}
+                    <p style="margin-bottom: 10px;">
+                        Nombre de postes : {{ job.numberPosition }}
+                    </p>
+                {% endif %}
+                {% if job.file %}
+                    <p style="margin-bottom: 10px;">
+                        Lien vers fichier : {{ job.file }}
+                    </p>
+                {% endif %}
+                {% if job.publishedAt %}
+                    <p style="margin-bottom: 10px;">
+                        Publié le : {{ job.publishedAt }}
+                    </p>
+                {% endif %}
+                {% if job.level %}
+                    <p style="margin-bottom: 10px;">
+                        Niveau : {{ job.level }}
+                    </p>
+                {% endif %}
+            </div>
+            {% if job.image %}
+                <div class="col">
+                    <img src="{{ job.image }}" alt="Job Author" class="img-fluid job-author-img">
+                </div>
+            {% endif %}
+        </div>
+        {% if job.description %}
+            <h5>Description</h5>
+            <hr>
+            <p>
+                {% apply markdown_to_html %}
+                    {{ job.description }}
+                {% endapply %}
+            </p>
+        {% endif %}
+
+        <hr>
+        {% if job.tags %}
+            <p style="margin-bottom: 10px;">
+                Tags : {{ job.tags }}
+            </p>
+        {% endif %}
+    </div>
+</div>

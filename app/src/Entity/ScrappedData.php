@@ -73,6 +73,9 @@ class ScrappedData
     #[ORM\Column]
     private ?bool $isPublished = null;
 
+    #[ORM\Column(name:'img', type: Types::TEXT, nullable: true)]
+    private ?string $image = null;
+
     #[ORM\PrePersist]
     public function prePersist(){
         $this->isPublished = false;
@@ -302,6 +305,18 @@ class ScrappedData
     public function setPublished(bool $isPublished): static
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

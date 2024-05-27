@@ -1,0 +1,194 @@
+{% extends '_auth_base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <span class="badge badge-soft-primary float-end">Quotidien</span>
+                        <h5 class="card-title mb-0">Nouveaux Jobs</h5>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                {{ lastDayCount }}
+                            </h2>
+                        </div>
+                        <div class="col-4 text-end">
+                            <span class="text-muted">{{ diffInPercentage }}%<i class="mdi mdi-arrow-{{ diffInPercentage > 0 ? 'up' : 'down' }} text-success"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="progress shadow-sm" style="height: 5px;">
+                        <div class="progress-bar bg-{{ diffInPercentage > 0 ? 'info' : 'danger' }}" role="progressbar" style="width: {{ diffInPercentage | abs }}%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Jobs Non Publiés</h5>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                {{ notPublishedJobsCount }}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <span class="badge badge-soft-primary float-end">Per Month</span>
+                        <h5 class="card-title mb-0">Expenses</h5>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                $784.62
+                            </h2>
+                        </div>
+                        <div class="col-4 text-end">
+                            <span class="text-muted">57% <i class="mdi mdi-arrow-up text-success"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="progress shadow-sm" style="height: 5px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;">
+                        </div>
+                    </div>
+                </div>
+                <!--end card body-->
+            </div>
+            <!--end card-->
+        </div> <!-- end col-->
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <span class="badge badge-soft-primary float-end">All Time</span>
+                        <h5 class="card-title mb-0">Daily Visits</h5>
+                    </div>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                1,15,187
+                            </h2>
+                        </div>
+                        <div class="col-4 text-end">
+                            <span class="text-muted">17.8% <i class="mdi mdi-arrow-down text-danger"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="progress shadow-sm" style="height: 5px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 57%;"></div>
+                    </div>
+                </div>
+                <!--end card body-->
+            </div><!-- end card-->
+        </div> <!-- end col-->#}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Actions</h4>
+                    <div class="d-grid gap-2">
+                        <a href="{{ path('app_admin_jobs_publish') }}">
+                            <button type="button" class="btn btn-lg btn-primary waves-effect waves-light">Publier des jobs</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Top 5 Platformes</h4>
+                    <div class="table-responsive">
+                        <table class="table table-centered table-striped table-nowrap mb-0">
+                            <thead>
+                            <tr>
+                                <th>Platforme</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for e in countPerPlatform %}
+                            <tr>
+                                <td>
+                                    {{ e.platform }}
+                                </td>
+                                <td>
+                                    {{ e.item_count }}
+                                </td>
+                                <td>
+                                    {{ e.last_created_at | date('d/m/y H:i') }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!--end card body-->
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Derniers Job Scrappés</h4>
+                    <div class="table-responsive">
+                        <table class="table table-centered table-striped table-nowrap mb-0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titre</th>
+                                <th>Plateforme</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for e in lastFiveJobs %}
+                            <tr>
+                                <td>
+                                    {{ e.id }}
+                                </td>
+                                <td>
+                                    {{ (e.title | slice(0, 40)) ~ '...' }}
+                                </td>
+                                <td>
+                                    {{ e.platform }}
+                                </td>
+                                <td>
+                                    {{ e.createdAt | date('d/m/y H:i') }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!--end card body-->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
