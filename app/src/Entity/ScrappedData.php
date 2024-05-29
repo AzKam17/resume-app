@@ -28,7 +28,7 @@ class ScrappedData
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(name:'location', type: Types::TEXT, nullable: true)]
     private ?string $location = null;
 
     #[ORM\Column(name:'descr', type: Types::TEXT, nullable: true)]

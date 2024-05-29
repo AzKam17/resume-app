@@ -1,0 +1,16 @@
+{% extends '_auth_base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg">
+                <h4>Commencer par choisir un modèle de CV.</h4>
+            </div>
+        </div>
+        <div class="row">
+            <a href="{{ path('app_cv_home') }}">Modele 1</a>
+        </div>
+    </div>
+{% endblock %}
