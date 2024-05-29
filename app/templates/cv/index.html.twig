@@ -1,0 +1,16 @@
+{% extends '_auth_base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_cv_new') }}">
+        <div class="container bg-white">
+            <div class="row w-100 vh-100  border border-dashed">
+                <div class="align-self-center">
+                    <h3 class="text-center">Aucun CV.</h3>
+                    <p class="text-center">Commencez par créer votre premier CV.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+{% endblock %}
