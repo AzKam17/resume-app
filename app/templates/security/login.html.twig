@@ -7,12 +7,12 @@
     <div class="card">
         <div class="card-body p-4">
             <div class="text-center w-75 mx-auto auth-logo mb-4">
-                <a href="{{ path('public_home') }}">
+                <a href="{{ path('security_home') }}">
                     <span><img src="https://placehold.co/708x120" alt="" height="22"></span>
                 </a>
             </div>
             <h3 class="public-title">Connexion avec <br> Email / Mot de passe</h3>
-            <form action="{{ path('app_login') }}" method="post" data-turbo-frame="_top">
+            <form action="{{ path('security_login') }}" method="post" data-turbo-frame="_top">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -44,7 +44,7 @@
                 </div>
             </form>
 
-            {{ include('_partials/_back_button.twig', {path: 'public_home'}) }}
+            {{ include('_partials/_back_button.twig', {path: 'security_home'}) }}
             {% include '_partials/_oauth.html.twig' %}
         </div>
     </div>

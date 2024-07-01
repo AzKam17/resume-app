@@ -16,12 +16,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/log-in', name: 'public_home')]
+    #[Route('/connexion', name: 'security_home')]
     public function public(Request $request, CheckIfUserExistsService $checkIfUserExistsService): Response
     {
         $form = $this->createFormBuilder(null)
@@ -36,11 +37,11 @@ class SecurityController extends AbstractController
             if(!$user){
                 $session = $request->getSession();
                 $session->set('user_email', $email);
-                return $this->redirectToRoute('public_sign_in');
+                return $this->redirectToRoute('security_sign_in');
             }else{
                 $session = $request->getSession();
                 $session->set('user_email', $email);
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('security_login');
             }
         }
 
@@ -51,7 +52,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/sign-in', name: 'public_sign_in')]
+    #[Route('/sign-in', name: 'security_sign_in')]
     public function sign_in(
         Request $request,
         CreateUserService $createUserService,
@@ -102,6 +103,18 @@ class SecurityController extends AbstractController
             'user_email' => $user_email,
 
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/login', name: 'security_login')]
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error'         => $error,
         ]);
     }
 }
