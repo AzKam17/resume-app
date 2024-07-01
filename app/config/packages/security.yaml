@@ -19,10 +19,10 @@ security:
             entry_point: "form_login"
             form_login:
                 login_path: public_home
-                check_path: app_login
+                check_path: security_login
                 enable_csrf: true
             logout:
-                path: app_logout
+                path: /logout
             custom_authenticators:
                 - App\Security\GoogleAuthenticator
                 # where to redirect after logout
